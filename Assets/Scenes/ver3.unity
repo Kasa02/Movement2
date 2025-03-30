@@ -5469,13 +5469,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23776dc2f62211547bb0381eeea73fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatIsGrappleable:
-    serializedVersion: 2
-    m_Bits: 128
-  gunTip: {fileID: 314475760}
-  player: {fileID: 1766329854}
-  crosshairUI: {fileID: 1533177178}
-  jumpForce: 10
 --- !u!120 &318155605
 LineRenderer:
   serializedVersion: 2
@@ -6063,7 +6056,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64548a533a0f7e84cb6b1eb7ea988d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6076,21 +6068,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678eb26db7aec1a41b501c89b77436ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &330585550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6693,6 +6670,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1119430988441025290, guid: 23265498f3b4a2d49853a7c11aaca87a, type: 3}
+--- !u!1 &355072359 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1357445559844659729, guid: e5f53f3e0e1518c4c9ec3be6d16f67b5, type: 3}
+  m_PrefabInstance: {fileID: 409758645}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &358649330 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3788204118786975307, guid: a936d43848397ec40974cbd484dd35b8, type: 3}
@@ -7468,7 +7450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1357445559844659729, guid: e5f53f3e0e1518c4c9ec3be6d16f67b5, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1357445559845092913, guid: e5f53f3e0e1518c4c9ec3be6d16f67b5, type: 3}
       propertyPath: m_RootOrder
@@ -7517,7 +7499,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1357445559844659729, guid: e5f53f3e0e1518c4c9ec3be6d16f67b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1757038090}
   m_SourcePrefab: {fileID: 100100000, guid: e5f53f3e0e1518c4c9ec3be6d16f67b5, type: 3}
 --- !u!1 &410087039
 GameObject:
@@ -16785,8 +16770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d75eaf207a977f4e88ec81289933db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1766329854}
-  offset: {x: 0, y: 0, z: 0}
 --- !u!4 &903008345
 Transform:
   m_ObjectHideFlags: 0
@@ -19644,8 +19627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d745a800d27e8bc4baf69e1645627a4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grappling: {fileID: 318155604}
-  rotationSpeed: 5
 --- !u!1001 &1000254143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36647,6 +36628,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1357445559845092913, guid: e5f53f3e0e1518c4c9ec3be6d16f67b5, type: 3}
   m_PrefabInstance: {fileID: 409758645}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &1757038090
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355072359}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1757258955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36795,9 +36803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c844a8d75b6629439fd6afddf3b6d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  cam: {fileID: 330585545}
-  countText: {fileID: 259374305}
 --- !u!114 &1766329849
 MonoBehaviour:
   m_ObjectHideFlags: 0
