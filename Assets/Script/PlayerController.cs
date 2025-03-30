@@ -1,21 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed;
-      
+    public float moveSpeed = 10f;
+    public Camera cam;
+
+
     private Vector2 input;
     private Rigidbody _rb;
-
-    private int moveType = 1;
+    private int count;
+    public TextMeshProUGUI countText;
+  
 
     private void Start()
     {
-        _rb = this.GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
+        count = 0;
+        SetCountText();
+
+
+        if (cam == null)
+        {
+            cam = Camera.main;
+        }
     }
 
     void Update()
@@ -25,61 +34,55 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        switch (moveType)
-        {
-            case 1:
-                MoveWithBySettingPosition();
-                break;
-            case 2:
-                MoveWithMovePosition();
-                break;
-            case 3:
-                MoveWithAddForce();
-                break;
-            case 4:
-                MoveWithAddTorque();
-                break;
-        }
+        MoveWithAddTorque();
     }
 
     private void UpdateInput()
     {
         input = Vector2.zero;
-        if (Input.GetKey(KeyCode.W))
-            input.y += 1;
-        if (Input.GetKey(KeyCode.S))
-            input.y -= 1;
-        if (Input.GetKey(KeyCode.D))
-            input.x += 1;
-        if (Input.GetKey(KeyCode.A))
-            input.x -= 1;
 
+        if (Input.GetKey(KeyCode.W)) input.y += 1;
+        if (Input.GetKey(KeyCode.S)) input.y -= 1;
+        if (Input.GetKey(KeyCode.D)) input.x += 1;
+        if (Input.GetKey(KeyCode.A)) input.x -= 1;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) moveType = 1;
-        if (Input.GetKeyDown(KeyCode.Alpha2)) moveType = 2;
-        if (Input.GetKeyDown(KeyCode.Alpha3)) moveType = 3;
-        if (Input.GetKeyDown(KeyCode.Alpha4)) moveType = 4;
+        input = input.normalized;
     }
 
-    private void MoveWithBySettingPosition()
+    private Vector3 GetCameraRelativeDirection()
     {
-        this.transform.position += new Vector3(moveSpeed * input.x, 0, moveSpeed * input.y);
-    }
+        Vector3 forward = cam.transform.forward;
+        Vector3 right = cam.transform.right;
 
-    private void MoveWithMovePosition()
-    {
-        _rb.MovePosition(this.transform.position + new Vector3(moveSpeed * input.x, 0, moveSpeed * input.y));
-    }
+        forward.y = 0;
+        right.y = 0;
 
-    private void MoveWithAddForce()
-    {
-        _rb.AddForce(new Vector3(moveSpeed * input.x, 0, moveSpeed * input.y));
+        forward.Normalize();
+        right.Normalize();
+
+        return (right * input.x + forward * input.y).normalized;
     }
 
     private void MoveWithAddTorque()
     {
-        _rb.AddTorque(moveSpeed * input.y, 0, moveSpeed * -input.x);
+        Vector3 moveDir = GetCameraRelativeDirection();
+
+        Vector3 torque = Vector3.Cross(Vector3.up, moveDir);
+
+        _rb.AddTorque(torque * moveSpeed, ForceMode.Force);
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PickUp"))
+        {
+            other.gameObject.SetActive(false);
+            count = count + 1;
+            SetCountText();
+        }
+
+    }
+    void SetCountText()
+    {
+        countText.text = "count: " + count.ToString();
     }
 }
-
-// add force, no set up velocity
